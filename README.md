@@ -34,7 +34,7 @@ The stack includes:
 
 ## Quick Deploy
 
-[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/aszynkow/oci_opensearch_poc/rm/version1.0/opensearch-stack.zip)
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/aszynkow/oci_opensearch_poc/raw/main/rm/version1.0/opensearch-stack.zip)
 
 ## Manual Deployment
 
