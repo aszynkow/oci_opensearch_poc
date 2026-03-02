@@ -23,7 +23,7 @@
     "sink": [
       {
         "opensearch": {
-          "hosts": ["https://opensearch-cluster.ap-sydney-1.opensearch.cluster.oci.oraclecloud.com:9200"],
+          "hosts": ["{{oci_secrets:opensearch_endpoint:value}}"],
           "username": "{{oci_secrets:opensearch_creds:username}}",
           "password": "{{oci_secrets:opensearch_creds:password}}",
           "index": "my-index"
