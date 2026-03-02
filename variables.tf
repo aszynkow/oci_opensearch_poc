@@ -169,3 +169,13 @@ variable "streaming_subnet_ocid" {
   description = "OCID of the subnet for streaming private endpoint"
   type        = string
 }
+
+variable "security_master_user_name" {
+  description = "Security master user name"
+  type        = string
+}
+
+variable "security_master_user_password" {
+  description = "Security master user password"
+  type        = string
+}

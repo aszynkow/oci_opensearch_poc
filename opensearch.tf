@@ -2,6 +2,8 @@ resource "oci_opensearch_opensearch_cluster" "opensearch_cluster" {
   compartment_id = var.compartment_ocid
   display_name   = var.opensearch_cluster_name
   software_version = var.opensearch_software_version
+  security_master_user_name      = var.security_master_user_name
+  security_master_user_password_hash = var.security_master_user_password
 
   master_node_count = var.master_node_count
   master_node_host_type = "FLEX"

@@ -13,6 +13,20 @@ variables:
     required: true
     visible: true
 
+  security_master_user_name:
+    type: string
+    title: "Security Master User Name"
+    description: "Name of the security master user"
+    required: true
+    visible: true
+
+  security_master_user_password:
+    type: string
+    title: "Security Master User Password"
+    description: "Password for the security master user"
+    required: true
+    visible: true
+
   compartment_ocid:
     type: oci:identity:compartment:id
     title: "Target Compartment"
@@ -290,6 +304,8 @@ variableGroups:
       - opensearch_dashboards_node_host_ocpu_count
       - opensearch_dashboards_node_host_memory_gb
       - opensearch_password
+      - security_master_user_name
+      - security_master_user_password
 
   - title: "Data Prepper"
     description: "Data Prepper pipeline configuration"
