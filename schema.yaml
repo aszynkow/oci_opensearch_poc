@@ -1,0 +1,313 @@
+title: OpenSearch Cluster with Data Prepper
+description: Deploy OpenSearch cluster with Data Prepper pipeline and object storage buckets
+informationalText: "The Resource Manager Stack just creates the infrastructure components (OpenSearch Cluster, OS bucket, Data Prepper Pipline, Streaming)."
+schemaVersion: 1.1.0
+version: "20200822"
+locale: "en"
+
+variables:
+  opensearch_password:
+    type: string
+    title: "OpenSearch Admin Password"
+    description: "Password for OpenSearch admin user"
+    required: true
+    visible: true
+
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Target Compartment"
+    description: "Compartment where OpenSearch cluster and buckets will be created"
+    required: true
+    visible: true
+    default: compartment_ocid
+
+  network_compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Network Compartment"
+    description: "Compartment containing the VCN and subnet"
+    required: true
+    visible: true
+    default: compartment_ocid
+
+  vcn_ocid:
+    type: oci:core:vcn:id
+    title: "VCN"
+    description: "VCN for the OpenSearch cluster"
+    required: true
+    visible: true
+    dependsOn:
+      compartmentId: ${network_compartment_ocid}
+
+  subnet_ocid:
+    type: oci:core:subnet:id
+    title: "Subnet"
+    description: "Subnet for the OpenSearch cluster"
+    required: true
+    visible: true
+    dependsOn:
+      compartmentId: ${network_compartment_ocid}
+      vcnId: ${vcn_ocid}
+
+  opensearch_cluster_name:
+    type: string
+    title: "OpenSearch Cluster Name"
+    description: "Name of the OpenSearch cluster"
+    required: true
+    visible: true
+    default: "npe-db-opnsrch-004"
+
+  data_node_count:
+    type: number
+    title: "Data Nodes Count"
+    description: "Number of data nodes"
+    required: true
+    visible: true
+    default: 6
+
+  data_node_host_ocpu_count:
+    type: number
+    title: "Data Nodes OCPUs"
+    description: "OCPU count for data nodes"
+    required: true
+    visible: true
+    default: 8
+
+  data_node_host_memory_gb:
+    type: number
+    title: "Data Nodes Memory (GB)"
+    description: "Memory in GB for data nodes"
+    required: true
+    visible: true
+    default: 64
+
+  master_node_count:
+    type: number
+    title: "Master Nodes Count"
+    description: "Number of master nodes"
+    required: true
+    visible: true
+    default: 3
+
+  master_node_host_ocpu_count:
+    type: number
+    title: "Master Nodes OCPUs"
+    description: "OCPU count for master nodes"
+    required: true
+    visible: true
+    default: 4
+
+  master_node_host_memory_gb:
+    type: number
+    title: "Master Nodes Memory (GB)"
+    description: "Memory in GB for master nodes"
+    required: true
+    visible: true
+    default: 32
+
+  opensearch_dashboards_node_count:
+    type: number
+    title: "Dashboard Nodes Count"
+    description: "Number of dashboard nodes"
+    required: true
+    visible: true
+    default: 1
+
+  opensearch_dashboards_node_host_ocpu_count:
+    type: number
+    title: "Dashboard Nodes OCPUs"
+    description: "OCPU count for dashboard nodes"
+    required: true
+    visible: true
+    default: 4
+
+  opensearch_dashboards_node_host_memory_gb:
+    type: number
+    title: "Dashboard Nodes Memory (GB)"
+    description: "Memory in GB for dashboard nodes"
+    required: true
+    visible: true
+    default: 16
+
+  data_prepper_node_count:
+    type: number
+    title: "Data Prepper Nodes Count"
+    description: "Number of Data Prepper nodes"
+    required: true
+    visible: true
+    default: 2
+
+  data_prepper_node_host_ocpu_count:
+    type: number
+    title: "Data Prepper OCPUs"
+    description: "OCPU count for Data Prepper nodes"
+    required: true
+    visible: true
+    default: 2
+
+  data_prepper_node_host_memory_gb:
+    type: number
+    title: "Data Prepper Memory (GB)"
+    description: "Memory in GB for Data Prepper nodes"
+    required: true
+    visible: true
+    default: 64
+
+  bucket_name_1:
+    type: string
+    title: "Bucket 1 Name"
+    description: "Name of the first object storage bucket"
+    required: true
+    visible: true
+    default: "npe-stor-objstor-004-0001"
+
+  bucket_name_2:
+    type: string
+    title: "Bucket 2 Name"
+    description: "Name of the second object storage bucket"
+    required: true
+    visible: true
+    default: "npe-stor-objstor-004-0002"
+
+  bucket_names:
+    type: list(string)
+    title: "Bucket Names"
+    description: "List of bucket names"
+    required: false
+    visible: false
+    default: ["npe-stor-objstor-004-0001", "npe-stor-objstor-004-0002"]
+
+  fingerprint:
+    type: string
+    title: "Fingerprint"
+    description: "Fingerprint"
+    required: false
+    visible: false
+
+  opensearch_software_version:
+    type: string
+    title: "OpenSearch Software Version"
+    description: "OpenSearch software version"
+    required: false
+    visible: false
+    default: "2.11.0"
+
+  private_key_path:
+    type: string
+    title: "Private Key Path"
+    description: "Path to private key"
+    required: false
+    visible: false
+
+
+  region:
+    type: string
+    title: "Region"
+    description: "OCI region"
+    required: false
+    visible: false
+    default: "ap-sydney-1"
+
+  tenancy_ocid:
+    type: string
+    title: "Tenancy OCID"
+    description: "Tenancy OCID"
+    required: false
+    visible: false
+
+  total_storage_gb:
+    type: number
+    title: "Total Storage (GB)"
+    description: "Total storage in GB"
+    required: false
+    visible: false
+    default: 16384
+
+  user_ocid:
+    type: string
+    title: "User OCID"
+    description: "User OCID"
+    required: false
+    visible: false
+
+  stream_pool_name:
+    type: string
+    title: "Streaming Pool Name"
+    description: "Name of the streaming pool"
+    required: true
+    visible: true
+    default: "npe-stream-pool-004"
+
+  stream_name:
+    type: string
+    title: "Stream Name"
+    description: "Name of the streaming stream"
+    required: true
+    visible: true
+    default: "npe-stream-004"
+
+  kafka_connector_name:
+    type: string
+    title: "Kafka Connector Name"
+    description: "Name of the Kafka connector"
+    required: true
+    visible: true
+    default: "npe-kafka-conn-004"
+
+  streaming_subnet_ocid:
+    type: oci:core:subnet:id
+    title: "Streaming Subnet"
+    description: "Subnet for streaming private endpoint"
+    required: true
+    visible: true
+    dependsOn:
+      compartmentId: ${network_compartment_ocid}
+      vcnId: ${vcn_ocid}
+
+variableGroups:
+  - title: "Networking"
+    description: "Network configuration"
+    variables:
+      - network_compartment_ocid
+      - vcn_ocid
+      - subnet_ocid
+    
+  - title: "Deployment Target"
+    description: "Confirmation Target Compartment"
+    variables:
+      - compartment_ocid
+  
+  - title: "OpenSearch"
+    description: "OpenSearch cluster configuration"
+    variables:
+      - opensearch_cluster_name
+      - data_node_count
+      - data_node_host_ocpu_count
+      - data_node_host_memory_gb
+      - master_node_count
+      - master_node_host_ocpu_count
+      - master_node_host_memory_gb
+      - opensearch_dashboards_node_count
+      - opensearch_dashboards_node_host_ocpu_count
+      - opensearch_dashboards_node_host_memory_gb
+      - opensearch_password
+
+  - title: "Data Prepper"
+    description: "Data Prepper pipeline configuration"
+    variables:
+      - data_prepper_node_count
+      - data_prepper_node_host_ocpu_count
+      - data_prepper_node_host_memory_gb
+
+  - title: "Object Storage"
+    description: "Object storage buckets configuration"
+    variables:
+      - bucket_name_1
+      - bucket_name_2
+
+  - title: "Streaming"
+    description: "Streaming configuration"
+    variables:
+      - stream_pool_name
+      - stream_name
+      - kafka_connector_name
+      - streaming_subnet_ocid

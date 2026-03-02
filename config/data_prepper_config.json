@@ -1,0 +1,8 @@
+{
+  "data-prepper": {
+    "name": "data-prepper-instance",
+    "workers": 2,
+    "memory": "64g",
+    "cpu": 2
+  }
+}

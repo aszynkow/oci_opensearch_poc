@@ -1,0 +1,39 @@
+{
+  "version": "2",
+  "pipeline": {
+    "source": {
+      "http": {
+        "authentication": {
+          "http_basic": {
+            "username": "{{oci_secrets:opensearch_creds:username}}",
+            "password": "{{oci_secrets:opensearch_creds:password}}"
+          }
+        }
+      }
+    },
+    "processor": [
+      {
+        "grok": {
+          "match": {
+            "message": ["%{COMMONAPACHELOG}"]
+          }
+        }
+      }
+    ],
+    "sink": [
+      {
+        "opensearch": {
+          "hosts": ["ocid1.opensearchcluster.oc1.ap-sydney-1.amaaaaaajlkbylianx4hok5edtw6wiuzd6m3zelwrgr2zwbqfvuo5ixml6rq"],
+          "username": "{{oci_secrets:opensearch_creds:username}}",
+          "password": "{{oci_secrets:opensearch_creds:password}}",
+          "index": "my-index"
+        }
+      }
+    ],
+    "buffer": {
+      "persistence": {
+        "enabled": true
+      }
+    }
+  }
+}
