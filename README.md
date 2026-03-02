@@ -1,4 +1,4 @@
-# OpenSearch Cluster with Data Prepper and Streaming
+# OpenSearch Cluster with Data Pepper and Streaming
 
 This Terraform configuration deploys a comprehensive OpenSearch analytics stack on Oracle Cloud Infrastructure (OCI), including data ingestion pipelines and streaming capabilities.
 
@@ -7,7 +7,7 @@ This Terraform configuration deploys a comprehensive OpenSearch analytics stack 
 The stack includes:
 
 - **OpenSearch Cluster**: Scalable search and analytics engine with configurable data, master, and dashboard nodes
-- **Data Prepper Pipeline**: Data ingestion and processing pipeline for transforming and routing data to OpenSearch
+- **Data Pepper Pipeline**: Data ingestion and processing pipeline for transforming and routing data to OpenSearch
 - **Object Storage Buckets**: Cloud storage for data persistence and backups
 - **Streaming Service**: Kafka-compatible streaming platform with private endpoints for real-time data processing
 - **Vault Secrets**: Secure credential management for OpenSearch authentication
@@ -92,7 +92,7 @@ After deployment, access the OpenSearch cluster:
 
 - **OpenSearch Dashboard**: `https://<cluster-fqdn>/`
 - **API Endpoint**: `https://<cluster-fqdn>:9200`
-- **Data Prepper Pipeline**: Automatically configured for data ingestion
+- **Data Pepper Pipeline**: Automatically configured for data ingestion
 
 ## Configuration Options
 
@@ -101,7 +101,7 @@ After deployment, access the OpenSearch cluster:
 - **Master Nodes**: Dedicated master nodes for cluster management
 - **Dashboard Nodes**: OpenSearch Dashboards for visualization
 
-### Data Prepper
+### Data Pepper
 - **Pipeline Configuration**: HTTP ingestion with authentication
 - **Data Processing**: Grok pattern matching and transformation
 - **Buffering**: Persistent buffering for reliability
