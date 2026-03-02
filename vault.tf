@@ -26,8 +26,8 @@ resource "oci_vault_secret" "opensearch_creds" {
   secret_content {
     content_type = "BASE64"
     content      = base64encode(jsonencode({
-      username = "admin"
-      password = var.opensearch_password
+      username = var.security_master_user_name
+      password = var.security_master_user_password
     }))
   }
 }

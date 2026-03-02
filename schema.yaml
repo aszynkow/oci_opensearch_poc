@@ -6,13 +6,6 @@ version: "20200822"
 locale: "en"
 
 variables:
-  opensearch_password:
-    type: string
-    title: "OpenSearch Admin Password"
-    description: "Password for OpenSearch admin user"
-    required: true
-    visible: true
-
   security_master_user_name:
     type: string
     title: "Security Master User Name"
@@ -303,7 +296,6 @@ variableGroups:
       - opensearch_dashboards_node_count
       - opensearch_dashboards_node_host_ocpu_count
       - opensearch_dashboards_node_host_memory_gb
-      - opensearch_password
       - security_master_user_name
       - security_master_user_password
 

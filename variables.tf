@@ -142,11 +142,6 @@ variable "bucket_names" {
   default     = ["npe-stor-objstor-004-0001", "npe-stor-objstor-004-0002"]
 }
 
-variable "opensearch_password" {
-  description = "Password for OpenSearch admin user"
-  type        = string
-}
-
 variable "stream_pool_name" {
   description = "Name of the streaming pool"
   type        = string
